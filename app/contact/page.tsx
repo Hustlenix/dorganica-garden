@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { BRAND, CONTACT, SOCIAL } from "@/lib/constants";
 import ContactCta from "@/components/ContactForm";
 

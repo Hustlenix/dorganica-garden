@@ -2,11 +2,11 @@
   "name": "dorganica-microgreens",
   "version": "1.0.0",
   "private": true,
-  "description": "D'Organica Garden — Urban farming, microgreens training, and terrace gardening services in Chennai",
+  "description": "D'Organica Garden - Urban farming, microgreens training, and terrace gardening services in Chennai",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npx serve@latest out",
+    "start": "npx serve@14 out",
     "typecheck": "tsc --noEmit",
     "lint": "next lint"
   },
@@ -19,8 +19,7 @@
     "react-dom": "^19.2.7",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.6.0",
-    "sharp": "^0.33.5",
-    "zod": "^4.4.3"
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.1",

@@ -7,7 +7,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: "/api/",
     },
-    sitemap: "https://hustlenix.github.io/dorganica-garden/sitemap.xml",
+    sitemap: "https://dorganicashop.com/sitemap.xml",
   };
 }

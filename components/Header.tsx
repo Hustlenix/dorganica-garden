@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -9,20 +9,75 @@ import { NAV_ITEMS, BRAND, CONTACT } from "@/lib/constants";
 import Button from "@/components/ui/Button";
 
 /**
+ * Focus trap for accessible modal menus.
+ * Cycles Tab/Shift+Tab within the provided container element.
+ */
+function useFocusTrap(
+  containerRef: React.RefObject<HTMLElement | null>,
+  isActive: boolean
+) {
+  useEffect(() => {
+    if (!isActive || !containerRef.current) return;
+
+    const container = containerRef.current;
+    const focusableSelector =
+      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    const getFocusableElements = () =>
+      Array.from(container.querySelectorAll<HTMLElement>(focusableSelector));
+
+    // Focus the first focusable element
+    const elements = getFocusableElements();
+    if (elements.length > 0) {
+      elements[0].focus();
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+
+      const focusable = getFocusableElements();
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isActive, containerRef]);
+}
+
+/**
  * D'ORGANICA HEADER
  *
  * Behavior:
- * - Transparent at top → glassmorphism on scroll
+ * - Transparent at top -> glassmorphism on scroll
  * - Hidden on scroll down, shown on scroll up
  * - Mobile menu with smooth slide-in animation
  * - CTA button in desktop nav
  * - Active page indicator
+ * - Focus trap in mobile menu for accessibility
  */
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [prevScroll, setPrevScroll] = useState(0);
   const [visible, setVisible] = useState(true);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+
+  useFocusTrap(mobileMenuRef, isMenuOpen);
 
   useEffect(() => {
     let ticking = false;
@@ -31,11 +86,8 @@ export default function Header() {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const current = window.scrollY;
-
-          // Determine if scrolled past threshold
           setIsScrolled(current > 40);
 
-          // Determine scroll direction for show/hide
           if (current > prevScroll && current > 100) {
             setVisible(false);
           } else {
@@ -81,6 +133,8 @@ export default function Header() {
     };
   }, [isMenuOpen]);
 
+  const closeMenu = useCallback(() => setIsMenuOpen(false), []);
+
   return (
     <header
       className={cn(
@@ -92,11 +146,11 @@ export default function Header() {
       )}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        {/* ── Logo ── */}
+        {/* - Logo - */}
         <Link
           href="/"
           className="relative z-10 flex items-center gap-2.5 group"
-          aria-label={`${BRAND.name} — Home`}
+          aria-label={`${BRAND.name} - Home`}
         >
           {/* Leaf icon */}
           <svg
@@ -134,7 +188,7 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* ── Desktop Navigation ── */}
+        {/* - Desktop Navigation - */}
         <nav
           className="hidden items-center gap-1 md:flex"
           aria-label="Main navigation"
@@ -165,7 +219,7 @@ export default function Header() {
           </div>
         </nav>
 
-        {/* ── Mobile Menu Button ── */}
+        {/* - Mobile Menu Button - */}
         <button
           type="button"
           className={cn(
@@ -183,11 +237,12 @@ export default function Header() {
         </button>
       </div>
 
-      {/* ── Mobile Menu Overlay ── */}
+      {/* - Mobile Menu Overlay - */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
             id="mobile-menu"
+            ref={mobileMenuRef}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -202,7 +257,7 @@ export default function Header() {
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               onClick={(e) => e.stopPropagation()}
-              className="absolute right-0 top-0 h-full w-3/4 max-w-sm bg-cream-50 p-6 pt-24 shadow-2xl"
+              className="absolute right-0 top-0 h-full w-3/4 max-w-sm bg-cream-50 p-6 pt-24 shadow-2xl overflow-y-auto"
               aria-label="Mobile navigation"
               role="dialog"
               aria-modal="true"
@@ -218,7 +273,7 @@ export default function Header() {
                     <Link
                       href={item.href}
                       className="block rounded-xl px-4 py-3 text-lg font-medium text-charcoal-800 transition-colors hover:bg-forest-50 hover:text-forest-700"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={closeMenu}
                     >
                       {item.label}
                     </Link>

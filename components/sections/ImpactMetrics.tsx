@@ -4,7 +4,8 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Sprout, Building2, Users, GraduationCap, Hammer, TrendingUp } from "lucide-react";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
-import { STATS } from "@/lib/constants";
+import { STATS } from "@/lib/constants"
+import { easeOutExpo } from "@/lib/animation";
 
 /**
  * SECTION 04 — Impact Metrics
@@ -62,7 +63,7 @@ export default function ImpactMetrics() {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{
                   duration: 0.6,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: easeOutExpo,
                   delay: 0.1 * i,
                 }}
                 className="group relative rounded-2xl border border-cream-200 bg-cream-50/50 p-6 sm:p-8 transition-all hover:border-forest-200 hover:bg-cream-50 hover:shadow-lg"

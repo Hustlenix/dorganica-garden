@@ -11,7 +11,8 @@ import {
   ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
-import SectionReveal from "@/components/SectionReveal";
+import SectionReveal from "@/components/SectionReveal"
+import { easeOutExpo } from "@/lib/animation";
 
 /**
  * SECTION 07 — Microgreens Academy
@@ -99,7 +100,7 @@ export default function MicrogreensAcademy() {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{
                   duration: 0.6,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: easeOutExpo,
                   delay: 0.15 * i,
                 }}
                 className={`group relative overflow-hidden rounded-2xl bg-gradient-to-b ${pillar.gradient} p-6 sm:p-8 transition-all hover:shadow-xl`}

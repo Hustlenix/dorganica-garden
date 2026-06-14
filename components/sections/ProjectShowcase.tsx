@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import Link from "next/link";
 import SectionReveal from "@/components/SectionReveal";
-import { TRANSFORMATIONS } from "@/lib/constants";
+import { TRANSFORMATIONS } from "@/lib/constants"; import { easeOutExpo } from "@/lib/animation";
 
 /**
  * SECTION 08 — Project Showcase
@@ -48,7 +48,7 @@ export default function ProjectShowcase() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{
                 duration: 0.6,
-                ease: [0.22, 1, 0.36, 1],
+                ease: easeOutExpo,
                 delay: 0.15 * i,
               }}
               className="group relative overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:shadow-xl hover:-translate-y-1"

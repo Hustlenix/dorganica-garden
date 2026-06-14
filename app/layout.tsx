@@ -9,6 +9,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import ScrollProgress from "@/components/ScrollProgress";
 import JsonLd from "@/components/JsonLd";
 import { organizationSchema, localBusinessSchema, websiteSchema } from "@/lib/seo";
+import { BRAND } from "@/lib/constants";
 
 /* ═══════════════════════════════════════════════════
    Typography — Premium Editorial + Geometric Sans
@@ -40,6 +41,7 @@ const jetbrains = JetBrains_Mono({
    ═══════════════════════════════════════════════════ */
 
 export const metadata: Metadata = {
+  metadataBase: new URL(BRAND.url),
   title: {
     default:
       "D'Organica Garden — Urban Farming, Terrace Gardening & Microgreens Training in Chennai",
@@ -47,7 +49,6 @@ export const metadata: Metadata = {
   },
   description:
     "Farmer and Farming at Every Home. Transform your rooftop, balcony, or community into a thriving ecosystem. Expert urban farming, terrace gardening, hydroponics, landscaping, and microgreens training in Chennai since 2014.",
-  metadataBase: new URL("https://hustlenix.github.io/dorganica-garden"),
   keywords: [
     "terrace gardening Chennai",
     "microgreens training Chennai",
@@ -67,9 +68,10 @@ export const metadata: Metadata = {
     siteName: "D'Organica Garden",
     type: "website",
     locale: "en_IN",
+    url: BRAND.url,
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.svg",
         width: 1200,
         height: 630,
         alt: "D'Organica Garden — Urban Farming in Chennai",
@@ -81,7 +83,7 @@ export const metadata: Metadata = {
     title: "D'Organica Garden — Farmer and Farming at Every Home",
     description:
       "Urban farming, terrace gardening, hydroponics & microgreens training in Chennai. Since 2014.",
-    images: ["/og-image.jpg"],
+    images: ["/og-image.svg"],
   },
   robots: {
     index: true,
@@ -132,6 +134,8 @@ export default function RootLayout({
       className={`${playfair.variable} ${inter.variable} ${jetbrains.variable}`}
     >
       <head>
+        {/* Canonical URL */}
+        <link rel="canonical" href={BRAND.url} />
         {/* Preconnect to font origins for performance */}
         <link
           rel="preconnect"

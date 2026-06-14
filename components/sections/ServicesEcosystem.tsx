@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import SectionReveal from "@/components/SectionReveal";
-import { SERVICES } from "@/lib/constants";
+import { SERVICES } from "@/lib/constants"; import { easeOutExpo } from "@/lib/animation";
 import { cn } from "@/lib/utils";
 
 /**
@@ -122,7 +122,7 @@ export default function ServicesEcosystem() {
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{
                     duration: 0.6,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: easeOutExpo,
                     delay: 0.08 * i,
                   }}
                   onMouseEnter={() => setActiveIndex(i)}
@@ -168,7 +168,7 @@ export default function ServicesEcosystem() {
                       height: isActive ? "auto" : 0,
                       opacity: isActive ? 1 : 0,
                     }}
-                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.3, ease: easeOutExpo }}
                     className="overflow-hidden"
                   >
                     <p className="mt-3 text-sm leading-relaxed text-charcoal-600">

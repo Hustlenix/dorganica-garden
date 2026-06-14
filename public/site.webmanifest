@@ -1,0 +1,12 @@
+{
+  "name": "D'Organica Garden",
+  "short_name": "D'Organica",
+  "description": "Urban farming, terrace gardening & microgreens training in Chennai",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fefcf7",
+  "theme_color": "#3a8a3a",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
