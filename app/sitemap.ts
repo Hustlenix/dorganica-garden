@@ -1,9 +1,9 @@
-﻿import type { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://dorganicashop.com";
+  const baseUrl = "https://hustlenix.github.io/dorganica-garden";
 
   const routes = [
     {

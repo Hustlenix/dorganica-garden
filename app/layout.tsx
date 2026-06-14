@@ -1,4 +1,4 @@
-﻿import type { Metadata, Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   description:
     "Farmer and Farming at Every Home. Transform your rooftop, balcony, or community into a thriving ecosystem. Expert urban farming, terrace gardening, hydroponics, landscaping, and microgreens training in Chennai since 2014.",
-  metadataBase: new URL("https://dorganicashop.com"),
+  metadataBase: new URL("https://hustlenix.github.io/dorganica-garden"),
   keywords: [
     "terrace gardening Chennai",
     "microgreens training Chennai",
