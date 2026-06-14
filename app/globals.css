@@ -1,0 +1,376 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════
+   D'ORGANICA GARDEN — Design System
+   Apple × Patagonia × National Geographic × Airbnb
+   ═══════════════════════════════════════════════════ */
+
+/* ─── Design Tokens ─── */
+@theme {
+  /* ── Serif: Display, Editorial ── */
+  --font-serif: "Playfair Display", "Georgia", serif;
+
+  /* ── Sans: Body, UI ── */
+  --font-sans: "Inter", "system-ui", -apple-system, sans-serif;
+
+  /* ── Mono: Data, Code ── */
+  --font-mono: "JetBrains Mono", "SF Mono", monospace;
+
+  /* ── Forest Green — Trust + Nature ── */
+  --color-forest-50: #f0f9f0;
+  --color-forest-100: #dcefdc;
+  --color-forest-200: #b9dfb9;
+  --color-forest-300: #8ec78e;
+  --color-forest-400: #5ca85c;
+  --color-forest-500: #3a8a3a;
+  --color-forest-600: #2d6e2d;
+  --color-forest-700: #235523;
+  --color-forest-800: #1a3f1a;
+  --color-forest-900: #0f2a0f;
+  --color-forest-950: #061506;
+
+  /* ── Organic Gold — Premium + Achievement ── */
+  --color-gold-50: #fdfaed;
+  --color-gold-100: #f9efc9;
+  --color-gold-200: #f2df96;
+  --color-gold-300: #e8c95c;
+  --color-gold-400: #dbb330;
+  --color-gold-500: #c99f1c;
+  --color-gold-600: #a67f14;
+  --color-gold-700: #845f12;
+  --color-gold-800: #6c4b15;
+  --color-gold-900: #5a3e16;
+  --color-gold-950: #34210a;
+
+  /* ── Warm Earth — Authenticity ── */
+  --color-earth-50: #fdfbf7;
+  --color-earth-100: #f7f0e6;
+  --color-earth-200: #efe0cc;
+  --color-earth-300: #e0c9a8;
+  --color-earth-400: #ccad7e;
+  --color-earth-500: #b8915a;
+  --color-earth-600: #a07848;
+  --color-earth-700: #84603b;
+  --color-earth-800: #6c4d32;
+  --color-earth-900: #5a412b;
+  --color-earth-950: #302216;
+
+  /* ── Cream — Luxury + Breathing Space ── */
+  --color-cream-50: #fefcf7;
+  --color-cream-100: #fcf6e8;
+  --color-cream-200: #f7ebcc;
+  --color-cream-300: #f0daa6;
+  --color-cream-400: #e7c47a;
+
+  /* ── Charcoal — Authority ── */
+  --color-charcoal-50: #f5f5f6;
+  --color-charcoal-100: #e6e6e7;
+  --color-charcoal-200: #cfcfd1;
+  --color-charcoal-300: #adadaf;
+  --color-charcoal-400: #858587;
+  --color-charcoal-500: #6b6b6d;
+  --color-charcoal-600: #555557;
+  --color-charcoal-700: #464647;
+  --color-charcoal-800: #3a3a3b;
+  --color-charcoal-900: #333334;
+  --color-charcoal-950: #1a1a1b;
+
+  /* ── Spacing Primitives ── */
+  --section-padding-x: clamp(1rem, 5vw, 4rem);
+  --section-padding-y: clamp(4rem, 10vh, 8rem);
+}
+
+/* ─── Base ─── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  color: var(--color-charcoal-900);
+  background-color: var(--color-cream-50);
+  overflow-x: hidden;
+}
+
+/* ─── Selection ─── */
+::selection {
+  background-color: var(--color-forest-200);
+  color: var(--color-forest-900);
+}
+
+/* ─── Scrollbar — Premium Minimal ─── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-forest-300);
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-forest-400);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-forest-300) transparent;
+}
+
+/* ─── Focus Ring ─── */
+*:focus-visible {
+  outline: 2px solid var(--color-forest-500);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ─── Skip Link (Accessibility) ─── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 100;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-forest-700);
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ═══════════════════════════════════════════════════
+   KEYFRAMES — Purposeful Motion
+   ═══════════════════════════════════════════════════ */
+
+/* ── Entrance: Fade In + Slide Up ── */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Entrance: Scale In ── */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ── Reveal: Mask Slide ── */
+@keyframes reveal-mask {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* ── Reveal: Vertical Mask ── */
+@keyframes reveal-up {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* ── Float: Gentle Hover ── */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ── Drift: Slow Ambient Motion ── */
+@keyframes drift {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(12px, -8px) rotate(1deg);
+  }
+  66% {
+    transform: translate(-6px, 6px) rotate(-0.5deg);
+  }
+}
+
+/* ── Pulse: Gentle Attention ── */
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* ── Shimmer: Loading Skeleton ── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ── Counter: Counting ── */
+@keyframes count-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Leaf Spin ── */
+@keyframes leaf-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════════ */
+
+/* ── Section Container ── */
+.section-container {
+  padding-left: var(--section-padding-x);
+  padding-right: var(--section-padding-x);
+  padding-top: var(--section-padding-y);
+  padding-bottom: var(--section-padding-y);
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/* ── Narrow Container (Editorial) ── */
+.container-narrow {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--section-padding-x);
+  padding-right: var(--section-padding-x);
+}
+
+/* ── Full Bleed Section ── */
+.section-full {
+  width: 100%;
+  padding-top: var(--section-padding-y);
+  padding-bottom: var(--section-padding-y);
+}
+
+/* ── Organic Shape (Non-rectangular decorative) ── */
+.org-shape {
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+}
+
+/* ── Glassmorphism ── */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-dark {
+  background: rgba(6, 21, 6, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Text Gradient ── */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-forest-600), var(--color-gold-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Gradient Mesh Background ── */
+.bg-mesh {
+  background-image:
+    radial-gradient(ellipse 80% 50% at 0% 20%, rgba(92, 168, 92, 0.08) 0%, transparent 100%),
+    radial-gradient(ellipse 50% 50% at 100% 80%, rgba(201, 159, 28, 0.06) 0%, transparent 100%),
+    radial-gradient(ellipse 50% 40% at 50% 0%, rgba(58, 138, 58, 0.04) 0%, transparent 100%);
+}
+
+/* ── Loading Skeleton ── */
+.skeleton {
+  background: linear-gradient(90deg, var(--color-cream-100) 25%, var(--color-cream-50) 50%, var(--color-cream-100) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* ═══════════════════════════════════════════════════
+   ACCESSIBILITY — Respect User Preferences
+   ═══════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --color-forest-500: #1a6b1a;
+    --color-forest-600: #145014;
+  }
+}
+
+/* ─── Responsive Typography Scale ─── */
+@media (max-width: 640px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1920px) {
+  html {
+    font-size: 17px;
+  }
+}
